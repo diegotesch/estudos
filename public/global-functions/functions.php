@@ -208,3 +208,36 @@ function validar_data($data)
 
     return $resultado;
 }
+
+function tratar_anexo($anexo)
+{
+    $padrao = '/^.+(\.pdf|\.zip)$/';
+    $resultado = preg_match($padrao, $anexo['name']);
+
+    if($resultado == 0):
+        return false;
+    endif;
+
+    move_uploaded_file($anexo['tmp_name'], "anexos/{$anexo['name']}");
+
+    return true;
+}
+
+function gravar_anexo($conexao, $anexo)
+{
+    $query = "insert into anexos (tarefa_id, nome, arquivo) VALUES (
+            {$anexo['tarefa_id']}, '{$anexo['nome']}', '{$anexo['arquivo']}')";
+    mysqli_query($conexao, $query);
+}
+
+function buscar_anexos($conexao, $tarefa_id)
+{
+    $query = "select * from anexos where tarefa_id = {$tarefa_id}";
+    $resultado = mysqli_query($conexao, $query);
+
+    $anexos = [];
+
+    while($anexo = mysqli_fetch_assoc($resultado)):
+        $anexos[] = $anexo;
+    endwhile;
+}

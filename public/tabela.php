@@ -14,7 +14,7 @@
             ?>
             <tr>
                 <td><?= ucfirst($tarefa['id']); ?></td>
-                <td><?= ucfirst($tarefa['nome']); ?></td>
+                <td><a href='tarefa.php?id=<?= $tarefa['id'] ?>'><?= ucfirst($tarefa['nome']); ?></a></td>
                 <td><?= ucfirst($tarefa['descricao']); ?></td>
                 <td><?= (!empty($tarefa['prazo']) ? data_translate($tarefa['prazo']) : 'Indefinido'); ?></td>
                 <td><?= prioridade_translate($tarefa['prioridade']) ?></td>
