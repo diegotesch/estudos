@@ -240,4 +240,19 @@ function buscar_anexos($conexao, $tarefa_id)
     while($anexo = mysqli_fetch_assoc($resultado)):
         $anexos[] = $anexo;
     endwhile;
+
+    return $anexos;
+}
+
+function buscar_anexo($conexao, $id)
+{
+    $query = "select * from anexos where id = {$id}";
+    $resultado = mysqli_query($conexao, $query);
+    return mysqli_fetch_assoc($resultado);
+}
+
+function remover_anexo($conexao, $id)
+{
+    $query = "delete from anexos where id = {$id}";
+    mysqli_query($conexao, $query);
 }

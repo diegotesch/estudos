@@ -35,10 +35,27 @@
             <h2>Anexos</h2>
 
             <!--lista de anexos-->
+            <?php if(isset($anexos) && count($anexos) > 0): ?>
+                <table>
+                    <tr>
+                        <th>Arquivo</th>
+                        <th>Opções</th>
+                    </tr>
 
+                    <?php foreach($anexos as $anexo): ?>
+                        <tr>
+                            <td><?= $anexo['nome'] ?></td>
+                            <td><a href="anexos/<?= $anexo['arquivo'] ?>">Download</a></td>
+                            <td><a href="remover_anexo.php?id=<?= $anexo['id']; ?>">Remover</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <p>Não há anexos para esta tarefa</p>
+    	    <?php endif; ?>
             <!-- formulario para um novo anexo-->
             <?php
-                if($tem_erros && array_key_exists('anexo', $erros_validacao)):
+                if((isset($tem_erros) && $tem_erros == true) && array_key_exists('anexo', $erros_validacao)):
             ?>
                 <div class="alert alert-danger">
                     <?= $erros_validacao['anexo'] ?>

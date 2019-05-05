@@ -3,7 +3,8 @@ session_start();
 require_once './global-functions/connect.php';
 require_once './global-functions/functions.php';
 
-if(isset($_POST)):
+if(isset($_POST) && !empty($_POST)):
+
     $tarefa_id = $_POST['tarefa_id'];
 
     if(!array_key_exists('anexo', $_FILES)):
@@ -23,8 +24,8 @@ if(isset($_POST)):
         endif;
     endif;
 
-    if(!$tem_erros):
-        gravar_anexo($conn, $anxo);
+    if(isset($tem_erros) && $tem_erros == false):
+        gravar_anexo($conn, $anexo);
     endif;
 
 endif;
